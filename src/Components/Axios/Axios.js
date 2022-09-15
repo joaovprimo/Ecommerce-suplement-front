@@ -4,7 +4,6 @@ const Base_URL= "http://localhost:5000/";
 
 function createHeaders(){
     const auth = localStorage.getItem('token');
-
     const config = {
         headers:{
             Authorization: `Bearer ${auth}`
@@ -14,9 +13,14 @@ function createHeaders(){
 }
 
 function getListProduct(){
-    //const config = createHeaders();
     const promise = axios.get(`${Base_URL}home`);
     return promise;
 }
 
-export {getListProduct}
+function selectProduct(item){
+    const config = createHeaders();
+const promise = axios.post(`${Base_URL}home`, item, config);
+return promise;
+}
+
+export {getListProduct, selectProduct}
