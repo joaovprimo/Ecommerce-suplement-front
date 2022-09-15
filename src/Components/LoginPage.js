@@ -21,7 +21,12 @@ export default function LoginPage() {
     });
     promise.then((response) => {
       const { data } = response;
+      //inseri este codigo aqui para salvar o token no localStorage e poder acessar a rota privada
+     localStorage.setItem('token', data);
+     console.log(data);
 const { name, token} = data
+
+
 setUser({name, token})
       navigate("/home");
     

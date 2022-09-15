@@ -3,7 +3,7 @@ import { useEffect, useContext } from "react";
 import AuthContext from "../Context/AuthContext";
 import logo from "../images/logo.png";
 import fundo from "../images/fundo.jpg";
-import {getListProduct} from "./Axios/Axios";
+import {getListProduct, selectProduct} from "./Axios/Axios";
 
 
 export default function Home() {
@@ -15,7 +15,9 @@ export default function Home() {
     }, [])
 
     function hendleClick (prod) {
-        console.log(prod)
+        selectProduct(prod).then(()=>{
+            console.log("sucesso");
+        }).catch(()=>console.log("erro"));
         }
 
 return(
