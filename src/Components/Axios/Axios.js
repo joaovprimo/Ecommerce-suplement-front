@@ -23,4 +23,11 @@ const promise = axios.post(`${Base_URL}home`, item, config);
 return promise;
 }
 
-export {getListProduct, selectProduct}
+function getproductsSelecteds(){
+    const config = createHeaders();
+    const promise = axios.get(`${Base_URL}home/selecteds`, config);
+    return promise;
+}
+
+
+export {getListProduct, selectProduct,getproductsSelecteds}

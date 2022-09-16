@@ -3,6 +3,8 @@ import { useState, useContext } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import AuthContext from "../Context/AuthContext.js"
+import logo from "../images/logo.png";
+import fundo from "../images/fundo.jpg";
 
 
 export default function LoginPage() {
@@ -42,8 +44,7 @@ setUser({name, token})
   return (
     <Container>
       <Logo>
-        <h1>Imagem aqui</h1>
-  
+        <img src={logo} alt=""/>
       </Logo>
       <Formulario>
         <form onSubmit={confirmarLogin}>
@@ -81,7 +82,6 @@ const Botao = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 6px;
-  margin-left: 20px;
 
   button {
     width: 303px;
@@ -89,7 +89,7 @@ const Botao = styled.div`
 
     background: red;
     border-radius: 4.63636px;
-    font-family: "Lexend Deca";
+    font-family: 'Montserrat', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 20.976px;
@@ -100,6 +100,7 @@ const Botao = styled.div`
   }
 `;
 const Formulario = styled.div`
+margin-top:20px;
   form{
     display: flex;
   justify-content: center;
@@ -112,12 +113,11 @@ const Formulario = styled.div`
     background: #ffffff;
     border: 1px solid #d5d5d5;
     border-radius: 5px;
-    font-family: "Lexend Deca";
+    font-family: 'Montserrat', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 19.976px;
     line-height: 25px;
-    margin-left: 20px;
     padding-left: 11px;
     margin-bottom: 16px;
   }
@@ -130,6 +130,13 @@ const Container = styled.div`
   justify-content: center;
   flex-direction: column;
   background: black;
+  box-sizing:border-box;
+  background-image: url(${fundo});
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-attachment:scroll;
+  overflow-y:scroll;
+  font-family: 'Montserrat', sans-serif;
 `;
 
 const Frase = styled.div`
@@ -139,7 +146,7 @@ const Frase = styled.div`
   left: 85px;
   top: 553px;
 
-  font-family: "Lexend Deca";
+  font-family: 'Montserrat', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 13.976px;
@@ -151,15 +158,20 @@ const Frase = styled.div`
 `;
 
 const Logo = styled.div`
-  width: 147px;
-height: 50px;
-
-
+display:flex;
+align-items:center;
+justify-content:center;
+width: auto;
+  height:auto;
 font-family: 'Saira Stencil One';
 font-style: normal;
 font-weight: 400;
 font-size: 32px;
 line-height: 50px;
-
 color: #FFFFFF;
+img{
+  border-radius:50%;
+  height:150px;
+  width:auto;
+}
 `;
