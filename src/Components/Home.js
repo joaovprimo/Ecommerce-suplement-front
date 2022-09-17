@@ -1,24 +1,42 @@
 import styled from "styled-components";
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import AuthContext from "../Context/AuthContext";
 import logo from "../images/logo.png";
 import fundo from "../images/fundo.jpg";
-import {getListProduct, selectProduct} from "./Axios/Axios";
+import {getListProduct, selectProduct, getCartSelectedProduct, deleteCartSelected} from "./Axios/Axios";
 
 
 export default function Home() {
+const [click, setClick] = useState(false)
+const [cartSelected, setCartSelected] = useState();
+
     const {arrProducts, setArrProducts} = useContext(AuthContext);
+
+    useEffect(()=>{
+        getCartSelectedProduct().then((list)=>{
+            setCartSelected(list.data);
+        }).catch(()=> console.log("error"))
+    }, [])
+
+
     useEffect(()=>{
         getListProduct().then((list)=>{
             setArrProducts(list.data);
         }).catch(()=> console.log("error"))
     }, [])
 
-    function hendleClick (prod) {
-        selectProduct(prod).then(()=>{
-            console.log("sucesso");
-        }).catch(()=>console.log("erro"));
+    function hendleClick () {
+        selectProduct.then(()=>{
+            alert("sucesso");
+        }).catch(()=>alert("erro"));
         }
+function handleDelete(selec){
+    deleteCartSelected(selec).then(()=>{
+        console.log("sucesso");
+    }).catch(()=>console.log("erro"));
+}
+        
+
 
 return(
 <>
@@ -27,7 +45,7 @@ return(
     <Search/>
     <Icons>
     <ion-icon name="person-outline"></ion-icon>
-    <ion-icon name="cart-outline"></ion-icon>
+    <ion-icon onClick={(() =>setClick(true))} name="cart-outline"></ion-icon>
     </Icons>
     </Header>
     <Container>
@@ -41,14 +59,90 @@ return(
        </Product>)}
   </List>
 </Container>
+{click ? <Modal> 
+            <Modal1>
+                <Headerc>
+            <p>Itens no meu carrinho</p>
+            <ion-icon onClick={(() => setClick(false))} name="close-outline"></ion-icon>
+            </Headerc>
+           <MainCart> 
+           {cartSelected.map((selec, ind)=><SelectedProduct key={ind} >
+           <img src={selec.img} alt=""/>  <ion-icon onClick={handleDelete} name="close-outline"></ion-icon>
+           <h4>R${(selec.value/100).toFixed(2)}</h4>
+           <h5>{selec.name}</h5>
+           <h6>{selec.description}</h6>
+            </SelectedProduct>)}
+                </MainCart>
+            
+            </Modal1>
+            </Modal>:""}
 </>
 )
 }
 
+const SelectedProduct = styled.div`
+
+img{
+    width: 18vw;
+    height: 25vh;
+    
+}
+h4{ 
+font-size:21px;
+font-weight:700;
+margin:15px 0;}
+h5{
+    font-size:25px;
+font-weight:600;
+margin:10px 0;
+}
+h6{
+    font-size:20px;
+    margin:5px 0;
+    margin-bottom:15px;
+}
+
+`
+
+const Modal = styled.div`
+ width: 100vw;
+  height: 240vh;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.7);
+  position: relative;
+  display: flex;
+  justify-content: end;
+
+  
+`
+const Modal1 = styled.div`
+width: 40vw;
+height: 240vh;
+display: flex;
+align-items: center;
+flex-direction: column;
+padding-top:10px;
+
+border-radius: 5px;
+background: rgba(255, 255, 255);
+p{
+    color: red;
+    font-weight: 800;
+    font-size: 30px;
+}
+
+`
+const MainCart = styled.div`
+padding-top: 15px;
+`
+
+const Headerc = styled.div`
+display: flex;
+`
 
 
 const Container = styled.div`
-position:absolute;
+position: absolute;
 padding-top:1650px;
   width: 100vw;
   height: 100vh;
