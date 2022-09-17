@@ -23,6 +23,19 @@ const promise = axios.post(`${Base_URL}home`, item, config);
 return promise;
 }
 
+
+function getCartSelectedProduct(){
+    const promise = axios.get(`${Base_URL}cart`);
+    return promise;
+}
+
+function deleteCartSelected(){
+    const config = createHeaders();
+    const promise = axios.post(`${Base_URL}delete`, config);
+    return promise
+}
+
+
 function getproductsSelecteds(){
     const config = createHeaders();
     const promise = axios.get(`${Base_URL}home/selecteds`, config);
@@ -30,4 +43,5 @@ function getproductsSelecteds(){
 }
 
 
-export {getListProduct, selectProduct,getproductsSelecteds}
+export {getListProduct, selectProduct, getproductsSelecteds, getCartSelectedProduct, deleteCartSelected}
+
