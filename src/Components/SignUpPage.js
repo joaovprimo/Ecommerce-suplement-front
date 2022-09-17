@@ -2,6 +2,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import logo from "../images/logo.png";
+import fundo from "../images/fundo.jpg";
 
 export default function SignUpPage() {
   const navigate = useNavigate();
@@ -31,7 +33,7 @@ export default function SignUpPage() {
   return (
     <>
       <Container>
-        <Header>Imagem aqui</Header>
+        <Header><img src={logo} alt=""/></Header>
         <Formulario>
           <form onSubmit={confirmarInscricao}>
             <input
@@ -81,8 +83,8 @@ export default function SignUpPage() {
 }
 
 const Header = styled.div`
-width: 147px;
-height: 50px;
+width: auto;
+height: auto;
 
 font-family: 'Saira Stencil One';
 font-style: normal;
@@ -90,7 +92,13 @@ font-weight: 400;
 font-size: 32px;
 line-height: 50px;
 
-color: #FFFFFF;`;
+color: #FFFFFF;
+img{
+  border-radius:50%;
+  height:150px;
+  width:auto;
+}
+`;
 
 const Botao = styled.div`
   display: flex;
@@ -144,7 +152,13 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background: black
+  background: black;
+  background-image: url(${fundo});
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-attachment:scroll;
+  overflow-y:scroll;
+  font-family: 'Montserrat', sans-serif;
 `;
 
 const Frase = styled.div`

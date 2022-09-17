@@ -10,9 +10,10 @@ import Home from "./Components/Home.js"
 export default function App() {
 const [user, setUser] = useState();
 const [arrProducts, setArrProducts] = useState([]);
+const [selected, setSelected] = useState([]);
 
   return (
-     <AuthContext.Provider value={{ user, setUser, arrProducts, setArrProducts}}>
+     <AuthContext.Provider value={{ user, setUser, arrProducts, setArrProducts, selected, setSelected}}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LoginPage />} />
