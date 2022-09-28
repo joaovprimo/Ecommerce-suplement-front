@@ -42,6 +42,17 @@ function getproductsSelecteds(){
     return promise;
 }
 
+function singIn(form){
+    console.log(form)
+    const promise = axios.post(`${Base_URL}singin`, form);
+    return promise;
+}
 
-export {getListProduct, selectProduct, getproductsSelecteds, getCartSelectedProduct, deleteCartSelected}
+function singUp(form){
+    console.log(form)
+    const promise = axios.post(`${Base_URL}singup`, form);
+    return promise;
+}
+
+export {getListProduct, selectProduct, getproductsSelecteds, getCartSelectedProduct, deleteCartSelected, singIn, singUp}
 

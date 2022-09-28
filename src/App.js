@@ -16,9 +16,9 @@ const [selected, setSelected] = useState([]);
      <AuthContext.Provider value={{ user, setUser, arrProducts, setArrProducts, selected, setSelected}}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage />} />
            <Route path="/sign-up" element={<SignUpPage />} /> 
-           <Route path="/home" element={<Home />} /> 
+           <Route path="/" element={<Home />} /> 
         </Routes>
       </BrowserRouter>
      </AuthContext.Provider>

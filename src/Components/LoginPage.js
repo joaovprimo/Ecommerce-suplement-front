@@ -1,11 +1,10 @@
 import { useNavigate, Link } from "react-router-dom";
 import { useState, useContext } from "react";
-import axios from "axios";
 import styled from "styled-components";
 import AuthContext from "../Context/AuthContext.js"
 import logo from "../images/logo.png";
 import fundo from "../images/fundo.jpg";
-
+import { singIn } from "./Axios/Axios"
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -15,29 +14,18 @@ export default function LoginPage() {
 
  async function confirmarLogin(event) {
     event.preventDefault();
-    const URL = "http://localhost:5000/";
-
-    const promise = axios.post(URL, {
-      email: email,
-      password: password
-    });
-    promise.then((response) => {
-      const { data } = response;
-      //inseri este codigo aqui para salvar o token no localStorage e poder acessar a rota privada
-     localStorage.setItem('token', data);
-     console.log(data);
-const { name, token} = data
-
-
-setUser({name, token})
-      navigate("/home");
+    let newObj={email, password}
+    singIn(newObj).then((res) => {
+      const { name, token} = res.data
+      console.log(name, token)
+     localStorage.setItem('token', token);
+      setUser({name, token})
+      navigate("/");
     
+    }).catch((err) => {
+     console.log(err)
+     alert(err.response.data)
     });
-    promise.catch((err) => {
-      alert("Falha ao fazer seu Login");
-    });
-
-
 
   }
 

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useContext, useState } from "react";
 import AuthContext from "../Context/AuthContext";
 import logo from "../images/logo.png";
@@ -11,9 +12,10 @@ export default function Home() {
     const [click, setClick] = useState(false)
     const [cartSelected, setCartSelected] = useState();
     const [prod, setProd] = useState("");
-    const {arrProducts, setArrProducts,selected, setSelected} = useContext(AuthContext);
-
-console.log(selected)
+    const {arrProducts, setArrProducts,selected, setSelected, user, setUser} = useContext(AuthContext);
+    const [boxUser, setBoxUser] = useState(false);
+const navigate = useNavigate();
+console.log(user)
 
     useEffect(()=>{
         getListProduct().then((list)=>{
@@ -47,6 +49,19 @@ function handleDelete(selec){
         console.log(arrFind);
         }
 
+        function openUser (){
+            setBoxUser(!boxUser);
+        }
+
+        function MakeLogout(){
+            localStorage.removeItem('token');
+            navigate('/Login')
+        }
+
+        function MakeLogin(){
+            navigate('/Login')
+        }
+
 return(
 <>
 <Header>
@@ -56,7 +71,16 @@ return(
     <Search type="text" value={prod} name='produ' onChange={e=> setProd(e.target.value)}/>
     </Searchfor>
     <Icons>
-    <ion-icon name="person-outline"></ion-icon>
+    <User onClick={openUser}>
+        {boxUser ? (<>
+        <ion-icon name="person-outline"></ion-icon>
+        <BoxUser>
+            {user ? <h1>Olá, {user.name}</h1> : <> </> }
+        <Log onClick={MakeLogin}>Login</Log>
+        <Log onClick={MakeLogout}>Logout</Log>
+        <Log onClick={(() => setClick(!click))}>Seus produtos</Log>
+        </BoxUser></>)
+        : (<ion-icon name="person-outline"></ion-icon>)}</User>
     <Value><ion-icon onClick={(() =>setClick(true))} name="cart-outline"></ion-icon>
     <Number><h1>{selected.length}</h1></Number>
     </Value>
@@ -154,7 +178,6 @@ const Headerc = styled.div`
 display: flex;
 `
 
-
 const Container = styled.div`
 position: absolute;
 padding-top:1650px;
@@ -212,7 +235,7 @@ background-color:white;
 input{
     border-style:none;
 border-color:white;
-width:auto;
+width:250px;
 }
 `
 const But = styled.button`
@@ -228,6 +251,7 @@ ion-icon{
 const Icons = styled.div`
 display:flex;
 margin-right:20px;
+
 ion-icon{
     width:50px;
     height:50px;
@@ -294,6 +318,7 @@ border-style:none;
 background-color:red;
 font-size:20px;
 font-weight:bold;
+font-family: 'Montserrat', sans-serif;
  &:hover {
     background-color:rgba(0,0,0,0);
     color:red;
@@ -311,7 +336,7 @@ align-items:center;
 justify-content:center;
 background-color:white;
 color:red;
-font-size:20px;
+font-size:15px;
 width:23px;
 height:23px;
 border-radius:50%;
@@ -320,4 +345,38 @@ top:30px;
 right:25px;
 font-family: 'Montserrat', sans-serif;
 font-weight:bold;
+`
+const User = styled.div`
+`
+const BoxUser = styled.div`
+width:170px;
+height:200px;
+background-color:white;
+position:absolute;
+bottom:-170px;
+right:50px;
+border-radius:10px;
+display:flex;
+flex-direction:column;
+justify-content:space-evenly;
+align-items:center;
+h1{
+    font-family: 'Montserrat', sans-serif;
+    color:red;
+    font-weight:bold;
+    font-size:20px;
+}
+`
+const Log = styled.div`
+background-color:black;
+width:80%;
+height:30px;
+border-radius:5px;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-family: 'Montserrat', sans-serif;
+font-weight:bold;
+font-size:15px;
 `
