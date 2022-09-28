@@ -4,6 +4,7 @@ import axios from "axios";
 import styled from "styled-components";
 import logo from "../images/logo.png";
 import fundo from "../images/fundo.jpg";
+import { singUp } from "./Axios/Axios";
 
 export default function SignUpPage() {
   const navigate = useNavigate();
@@ -15,20 +16,23 @@ export default function SignUpPage() {
 
   function confirmarInscricao(event) {
     event.preventDefault();
-    const URL = "http://localhost:5000/sign-up";
-    const promise = axios.post(URL, {
+    if(password !== confirmpassword){
+      alert("Passwors do not match")
+    }else{
+    
+    singUp({
       name,
       email,
-      password,
-      confirmpassword,
-    });
-    promise.then((response) => {
-      navigate("/");
-    });
-    promise.catch((err) => {
+      password
+    }).then((response) => {
+      console.log(response.data)
+      navigate("/login");
+    }).catch((err) => {
       alert("Falha ao fazer seu Cadastro");
+      console.log(err);
     });
   }
+}
 
   return (
     <>
@@ -63,7 +67,7 @@ export default function SignUpPage() {
             <input
               type="password"
               value={confirmpassword}
-              placeholder="confirmpassword"
+              placeholder="confirm password"
               
               onChange={(e) => setConfirmpassword(e.target.value)}
             />
@@ -72,7 +76,7 @@ export default function SignUpPage() {
             </Botao>
           </form>
         </Formulario>
-        <Link to={`/`}>
+        <Link to={`/login`}>S
           <Frase>
             <p>Already have an account? Click here!</p>
           </Frase>
