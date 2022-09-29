@@ -34,10 +34,11 @@ console.log(user)
         }).catch(()=> console.log("error"));
     }, [])
 
-
+    let sum = somaProdutos(selected)
     function hendleClick (prod) {
         selectProduct(prod).then((data)=>{
             setSelected(data.data);
+            sum = somaProdutos(selected)
         }).catch((err) => {
             console.log(err)
             alert(err.response.data)
@@ -47,9 +48,7 @@ function handleDelete(selec){
     deleteCartSelected(selec).then((data)=>{
         console.log(data.data)
         setSelected(data.data);
-        setSubtotal(selected.map((val)=> val.value).reduce((total, currentValue)=>{
-            return (total+currentValue)
-       })/100) 
+        sum = somaProdutos(selected)
     }).catch((err)=>{
         console.log(err)
             alert(err.response)
@@ -134,7 +133,7 @@ return(
             </SelectedProduct>)}
             <Subtotal>
             <h1>Total = R$  
-            {subtotal}</h1>
+            {sum}</h1>
             <Button onClick={()=>finalziarPedido()}>
                 Finalizar Compra
             </Button>
@@ -148,6 +147,17 @@ return(
 )
 }
 
+function somaProdutos(arr){
+    let sum=0
+    let total;
+    console.log(arr);
+    for (let i =0; i<arr.length;i++){
+        sum =  sum + arr[i].value
+    }
+total = (sum/100).toFixed(2)
+    return total;
+}
+
 const Subtotal = styled.div`
 background-color:#f5f5f5;
 width:350px;
@@ -157,7 +167,7 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 h1{
-    color:green;
+    color:black;
     font-size:25px;
 font-weight:700;
 }
