@@ -18,6 +18,8 @@ function getListProduct(){
 }
 
 function selectProduct(item){
+    console.log(item)
+    const iditem = item._id;
     const config = createHeaders();
 const promise = axios.post(`${Base_URL}home`, item, config);
 return promise;
@@ -29,9 +31,10 @@ function getCartSelectedProduct(){
     return promise;
 }
 
-function deleteCartSelected(){
+function deleteCartSelected(obj){
+    console.log(obj)
     const config = createHeaders();
-    const promise = axios.post(`${Base_URL}delete`, config);
+    const promise = axios.delete(`${Base_URL}delete/${obj.idProduct}`);
     return promise
 }
 

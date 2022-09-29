@@ -12,11 +12,16 @@ export default function Home() {
     const [click, setClick] = useState(false)
     const [cartSelected, setCartSelected] = useState();
     const [prod, setProd] = useState("");
-    const {arrProducts, setArrProducts,selected, setSelected, user, setUser} = useContext(AuthContext);
+    const {arrProducts, setArrProducts,selected, setSelected, user, setUser, subtotal, setSubtotal} = useContext(AuthContext);
     const [boxUser, setBoxUser] = useState(false);
+    
+    console.log(subtotal)
 const navigate = useNavigate();
 console.log(user)
-
+    
+        if(!user){
+            localStorage.removeItem('token');
+        }
     useEffect(()=>{
         getListProduct().then((list)=>{
             setArrProducts(list.data);
@@ -26,20 +31,29 @@ console.log(user)
         }).catch(()=> console.log("error"));
         getCartSelectedProduct().then((list)=>{
             setCartSelected(list.data);
-        }).catch(()=> console.log("error"))
+        }).catch(()=> console.log("error"));
     }, [])
 
 
     function hendleClick (prod) {
         selectProduct(prod).then((data)=>{
             setSelected(data.data);
-        }).catch(()=>console.log("erro"));
-
+        }).catch((err) => {
+            console.log(err)
+            alert(err.response.data)
+        });
         }
 function handleDelete(selec){
-    deleteCartSelected(selec).then(()=>{
-        console.log("sucesso");
-    }).catch(()=>console.log("erro"));
+    deleteCartSelected(selec).then((data)=>{
+        console.log(data.data)
+        setSelected(data.data);
+        setSubtotal(selected.map((val)=> val.value).reduce((total, currentValue)=>{
+            return (total+currentValue)
+       })/100) 
+    }).catch((err)=>{
+        console.log(err)
+            alert(err.response)
+    })
 }
         
         function findProduct(e){
@@ -55,11 +69,15 @@ function handleDelete(selec){
 
         function MakeLogout(){
             localStorage.removeItem('token');
-            navigate('/Login')
+            window.location.reload();
         }
 
         function MakeLogin(){
             navigate('/Login')
+        }
+        function finalziarPedido(){
+            alert("Parabéns seu pedido foi realizado!");
+            window.location.reload();
         }
 
 return(
@@ -104,12 +122,24 @@ return(
             <ion-icon onClick={(() => setClick(false))} name="close-outline"></ion-icon>
             </Headerc>
            <MainCart> 
-           {selected.map((selec, ind)=><SelectedProduct key={ind} >
-           <img src={selec.img} alt=""/>  <ion-icon onClick={handleDelete} name="close-outline"></ion-icon>
+           {selected.map((selec, ind)=>
+           <SelectedProduct key={ind} >
+           <img src={selec.img} alt=""/>
+           <Infos>
            <h4>R${(selec.value/100).toFixed(2)}</h4>
            <h5>{selec.name}</h5>
            <h6>{selec.description}</h6>
+           </Infos>
+           <ion-icon onClick={()=>handleDelete(selec)} name="close-outline"></ion-icon>
             </SelectedProduct>)}
+            <Subtotal>
+            <h1>Total = R$  
+            {subtotal}</h1>
+            <Button onClick={()=>finalziarPedido()}>
+                Finalizar Compra
+            </Button>
+            </Subtotal> 
+            
                 </MainCart>
             
             </Modal1>
@@ -118,26 +148,57 @@ return(
 )
 }
 
-const SelectedProduct = styled.div`
-
-img{
-    width: 18vw;
-    height: 25vh;
-    
-}
-h4{ 
-font-size:21px;
-font-weight:700;
-margin:15px 0;}
-h5{
+const Subtotal = styled.div`
+background-color:#f5f5f5;
+width:350px;
+height:150px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+h1{
+    color:green;
     font-size:25px;
-font-weight:600;
-margin:10px 0;
+font-weight:700;
+}
+`
+
+const Infos = styled.div`
+color:black;
+display:flex;
+flex-direction:column;
+margin:15px 10px;
+text-align:center;
+h4{ 
+font-size:20px;
+font-weight:700;
+}
+h5{
+    font-size:20px;
+    font-weight:500;
 }
 h6{
-    font-size:20px;
+    font-size:12px;
     margin:5px 0;
-    margin-bottom:15px;
+}
+`
+const SelectedProduct = styled.div`
+display:flex;
+justify-content:space-between;
+align-items:center;
+background-color:#f5f5f5;
+width:350px;
+height:150px;
+border-radius:10px;
+margin-bottom:15px;
+img{
+    width: 100px;
+    height: 100px;
+}
+ion-icon{
+    margin-bottom:100px;
+    margin-right:15px;
+    color:black;
 }
 
 `
