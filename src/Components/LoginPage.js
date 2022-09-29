@@ -61,6 +61,11 @@ export default function LoginPage() {
           <p>Don't have an account? Click here!</p>
         </Frase>
       </Link>
+      <Link to={`/`}>
+        <Botao>
+          <p>Voltar para o menu principal</p>
+          </Botao>
+      </Link>
     </Container>
   );
 }
@@ -70,6 +75,14 @@ const Botao = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 6px;
+
+  p{
+    margin-top: 20px;
+    color:white;
+    font-family: 'Montserrat', sans-serif;
+    font-weight:600;
+    text-decoration:underline;
+  }
 
   button {
     width: 303px;
@@ -108,6 +121,9 @@ margin-top:20px;
     line-height: 25px;
     padding-left: 11px;
     margin-bottom: 16px;
+  }
+  ::placeholder{
+    font-family: 'Montserrat', sans-serif;
   }
 `;
 const Container = styled.div`
