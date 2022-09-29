@@ -167,7 +167,7 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 h1{
-    color:green;
+    color:black;
     font-size:25px;
 font-weight:700;
 }
