@@ -127,16 +127,15 @@ return(
            <Infos>
            <h4>R${(selec.value/100).toFixed(2)}</h4>
            <h5>{selec.name}</h5>
-           <h6>{selec.description}</h6>
            </Infos>
            <ion-icon onClick={()=>handleDelete(selec)} name="close-outline"></ion-icon>
             </SelectedProduct>)}
             <Subtotal>
             <h1>Total = R$  
             {sum}</h1>
-            <Button onClick={()=>finalziarPedido()}>
+            <Button2 onClick={()=>finalziarPedido()}>
                 Finalizar Compra
-            </Button>
+            </Button2>
             </Subtotal> 
             
                 </MainCart>
@@ -158,34 +157,22 @@ total = (sum/100).toFixed(2)
     return total;
 }
 
-const Subtotal = styled.div`
-background-color:#f5f5f5;
-width:350px;
-height:150px;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-h1{
-    color:black;
-    font-size:25px;
-font-weight:700;
-}
-`
+
 
 const Infos = styled.div`
 color:black;
 display:flex;
 flex-direction:column;
-margin:15px 10px;
 text-align:center;
 h4{ 
-font-size:20px;
+font-size:16px;
 font-weight:700;
+color:green;
 }
 h5{
-    font-size:20px;
-    font-weight:500;
+    margin-top:5px;
+    font-size:15px;
+    font-weight:700;
 }
 h6{
     font-size:12px;
@@ -194,23 +181,42 @@ h6{
 `
 const SelectedProduct = styled.div`
 display:flex;
-justify-content:space-between;
+justify-content:center;
 align-items:center;
 background-color:#f5f5f5;
-width:350px;
-height:150px;
+width:195px;
+height:100px;
 border-radius:10px;
 margin-bottom:15px;
+margin-right:15px;
+
 img{
-    width: 100px;
-    height: 100px;
+    margin-left:15px;
+    width: 60px;
+    height: 60px;
 }
 ion-icon{
-    margin-bottom:100px;
-    margin-right:15px;
+    font-size:15px;
+    margin-bottom:90px;
+    margin-right:10px;
     color:black;
 }
 
+`
+const Subtotal = styled.div`
+background-color:#f5f5f5;
+width:195px;
+height:100px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+border-radius:5px;
+h1{
+    color:green;
+    font-size:20px;
+font-weight:700;
+}
 `
 
 const Modal = styled.div`
@@ -225,8 +231,8 @@ const Modal = styled.div`
   
 `
 const Modal1 = styled.div`
-width: 40vw;
-height: 240vh;
+width: 60vw;
+height: 122vh;
 display: flex;
 align-items: center;
 flex-direction: column;
@@ -239,19 +245,40 @@ p{
     font-weight: 800;
     font-size: 30px;
 }
-
 `
+const Button2 = styled.button`
+margin-top:10px;
+   margin-bottom:10px;
+width:100px;
+height:40px;
+border-radius:5px;
+border-style:none;
+background-color:red;
+font-size:10px;
+font-weight:bold;
+font-family: 'Montserrat', sans-serif;
+color:white;
+ &:hover {
+    background-color:rgba(0,0,0,0);
+    color:red;
+    box-shadow:inset 0 0 0 3px red;}
+ `
 const MainCart = styled.div`
 padding-top: 15px;
 `
 
 const Headerc = styled.div`
 display: flex;
+width:150px;
+p{
+    font-size:20px;
+    text-align: center;
+}
 `
 
 const Container = styled.div`
 position: absolute;
-padding-top:1650px;
+padding-top:1030px;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -263,6 +290,7 @@ padding-top:1650px;
   background-size:cover;
   background-attachment:scroll;
   overflow-y:scroll;
+  overflow-x:none;
   font-family: 'Montserrat', sans-serif;
 `;
 
@@ -271,21 +299,22 @@ position:relative;
 top:0;
 right:0;
 width:100vw;
-height:130px;
+height:90px;
 display:flex;
 justify-content:space-between;
 align-items:center;
 background-color:black;
 z-index:2;
 box-sizing:border-box;
+overflow-x:unset;
 img{
-    margin-left:15px;
-    width:150px;
-    height:130px;}
+    margin-left:5px;
+    width:80px;
+    height:80px;}
 
 `
 const Search = styled.input`
-font-size:21px;
+font-size:15px;
 padding:20px;
 width:80%;
 height:60px;
@@ -297,8 +326,8 @@ font-weight:600;
 const Searchfor = styled.form`
 display:flex;
 align-items:center;
-width:400px;
-height:80px;
+width:40%;
+height:45px;
 border-radius:50px;
 border-style:none;
 border-color:white;
@@ -306,28 +335,31 @@ background-color:white;
 input{
     border-style:none;
 border-color:white;
-width:250px;
+width:90px;
+height:30px;
 }
 `
 const But = styled.button`
 border-style:none;
 background-color:rgba(0,0,0,0);
+display: flex;
+    justify-content: center;
 ion-icon{
-    margin-left: 15px;;
-    font-size:35px;
+    margin-left: 5px;;
+    font-size:25px;
 }
 `
 
 
 const Icons = styled.div`
 display:flex;
-margin-right:20px;
+margin-right:10px;
 
 ion-icon{
-    width:50px;
-    height:50px;
-    margin-left:15px;
-    margin-right:15px;
+    width:35px;
+    height:35px;
+    margin-left:5px;
+    margin-right:10px;
     color:white;
 }
 `
@@ -339,41 +371,39 @@ justify-content:center;
 align-items:center;
 `
 const Product = styled.div`
-width:50vw;
-height:500px;
+width:60vw;
+height:300px;
 background-color:white;
 margin-bottom:30px;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-box-sizing:border-box;
 border-radius:10px;
-
-
 img{
-    width:200px;
-    height:200px;
+    width:100px;
+    height:100px;
     border-radius:5px;
-    margin-top:5px;
+    margin-top:20px;
 }
 
 h1{
-font-size:21px;
+font-size:18px;
 font-weight:700;
-margin:15px 0;
-width:auto;
-text-align:center;
-}
-h2{
-    font-size:25px;
-font-weight:600;
 margin:10px 0;
 width:auto;
 text-align:center;
 }
+h2{
+    font-size:18px;
+font-weight:600;
+margin:10px 0;
+margin-top:15px;
+width:auto;
+text-align:center;
+}
 h3{
-    font-size:20px;
+    font-size:15px;
     margin:5px 0;
     margin-bottom:15px;
     text-align:center;
@@ -381,21 +411,23 @@ h3{
 
 `
  const Button = styled.button`
-   margin-top:15px;
-width:120px;
+   margin-bottom:10px;
+width:100px;
 height:50px;
 border-radius:5px;
 border-style:none;
 background-color:red;
-font-size:20px;
+font-size:18px;
 font-weight:bold;
 font-family: 'Montserrat', sans-serif;
+color:white;
  &:hover {
     background-color:rgba(0,0,0,0);
     color:red;
     box-shadow:inset 0 0 0 3px red;}
  `
 const Value = styled.div`
+    margin-right: 10px
 ion-icon{
     position:relative;
 }
@@ -408,24 +440,24 @@ justify-content:center;
 background-color:white;
 color:red;
 font-size:15px;
-width:23px;
-height:23px;
+width:18px;
+height:18px;
 border-radius:50%;
 position:absolute;
-top:30px;
-right:25px;
+top:15px;
+right:20px;
 font-family: 'Montserrat', sans-serif;
 font-weight:bold;
 `
 const User = styled.div`
 `
 const BoxUser = styled.div`
-width:170px;
-height:200px;
+width:130px;
+height:100px;
 background-color:white;
 position:absolute;
-bottom:-170px;
-right:50px;
+bottom:-80px;
+right:45px;
 border-radius:10px;
 display:flex;
 flex-direction:column;
@@ -435,13 +467,13 @@ h1{
     font-family: 'Montserrat', sans-serif;
     color:red;
     font-weight:bold;
-    font-size:20px;
+    font-size:12px;
 }
 `
 const Log = styled.div`
 background-color:black;
-width:80%;
-height:30px;
+width:70%;
+height:20px;
 border-radius:5px;
 color:white;
 display:flex;
@@ -449,5 +481,5 @@ align-items:center;
 justify-content:center;
 font-family: 'Montserrat', sans-serif;
 font-weight:bold;
-font-size:15px;
+font-size:10px;
 `
